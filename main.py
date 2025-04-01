@@ -1,8 +1,16 @@
+from stats import word_count
+import sys
+
+
 def main():
 
-    def word_count(x):
-        array = x.split()
-        return len(array)
+    if len(sys.argv) < 2:
+        print('Usage: python3 main.py <path_to_book>')
+        sys.exit(1)
+    else:
+        path_to_book = sys.argv[1]
+
+    
     
     def char_count(x):
         dict = {}
@@ -23,13 +31,13 @@ def main():
         sorted_list_of_alpha = sorted(list_of_alpha, reverse=True, key=lambda d: d["num"])
         report = []
         for y in sorted_list_of_alpha:
-            report.append(f'''The '{y["character"]}' was found {y["num"]} times\n''')
+            report.append(f'''{y["character"]}: {y["num"]}\n''')
         annoying_list_of_useless_garbage = "".join(report)
         return annoying_list_of_useless_garbage
         
         
 
-    with open("books/frankenstein.txt") as f:
+    with open(path_to_book) as f:
         file_contents = f.read()
         words = word_count(file_contents)
         character_counter = char_count(file_contents)
@@ -37,7 +45,7 @@ def main():
       
 
         print(f"""--- Begin report of {f.name} ---
-        {words} found in the document
+        {words} words found in the document
 
 {alphabetical}
         --- End report ---
